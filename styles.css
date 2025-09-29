@@ -246,10 +246,12 @@ section {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
+    perspective: 600px;
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.03) rotateY(2deg) rotateX(2deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
 }
 
 .project-icon {
@@ -387,4 +389,45 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+} 
+
+/* Profile image animation */
+.profile-image img {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
+}
+.profile-image.visible img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Responsive images */
+.project-icon img, .profile-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Staggered content animation */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s, transform 0.7s;
+}
+.stagger-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section entrance animation */
+section {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
+}
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 } 
