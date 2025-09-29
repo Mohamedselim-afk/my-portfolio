@@ -1,10 +1,22 @@
-// Portfolio Interaction and Animation Script
-
+// Mohamed Selim Portfolio Interactions
 document.addEventListener('DOMContentLoaded', () => {
     // GSAP ScrollTrigger Animations
     gsap.registerPlugin(ScrollTrigger);
 
-    // Scroll-triggered animations for sections
+    // Sticky Navigation
+    const header = document.querySelector('header');
+    const heroSection = document.querySelector('.hero');
+
+    const stickyNav = () => {
+        if (window.scrollY > heroSection.offsetHeight) {
+            header.classList.add('sticky');
+        } else {
+            header.classList.remove('sticky');
+        }
+    };
+    window.addEventListener('scroll', stickyNav);
+
+    // Scroll-triggered section animations
     const animateSections = () => {
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
@@ -27,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Skill cards animation
+    // Skill cards animation with tech stack hover effect
     const animateSkillCards = () => {
         const skillCards = document.querySelectorAll('.skill-card');
         skillCards.forEach((card, index) => {
@@ -47,10 +59,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             );
+
+            // Hover interaction
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.05,
+                    boxShadow: '0 15px 40px rgba(0,0,0,0.15)',
+                    duration: 0.3
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                    duration: 0.3
+                });
+            });
         });
     };
 
-    // Project cards animation
+    // Project cards interaction
     const animateProjectCards = () => {
         const projectCards = document.querySelectorAll('.project-card');
         projectCards.forEach((card, index) => {
@@ -70,6 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             );
+
+            // Hover and click interactions
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.05,
+                    boxShadow: '0 15px 40px rgba(0,0,0,0.15)',
+                    duration: 0.3
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                    duration: 0.3
+                });
+            });
         });
     };
 
@@ -78,23 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('nav a');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: {
-                        y: targetSection,
-                        offsetY: 50
-                    },
-                    ease: 'power3.inOut'
-                });
+                if (link.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: {
+                            y: targetSection,
+                            offsetY: 50
+                        },
+                        ease: 'power3.inOut'
+                    });
+                }
             });
         });
     };
 
-    // Contact Form Submission Handler
+    // Contact form with validation and submission simulation
     const setupContactForm = () => {
         const contactForm = document.getElementById('contact-form');
         if (contactForm) {
@@ -105,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const emailInput = contactForm.querySelector('input[type="email"]');
                 const messageInput = contactForm.querySelector('textarea');
 
+                // Basic validation
                 if (nameInput.value.trim() === '' || 
                     emailInput.value.trim() === '' || 
                     messageInput.value.trim() === '') {
@@ -116,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ease: 'power1.inOut'
                     });
 
-                    alert('يرجى ملء جميع الحقول');
+                    alert('Please fill in all fields');
                     return;
                 }
 
@@ -125,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     opacity: 0,
                     duration: 0.5,
                     onComplete: () => {
-                        alert('شكرًا لك! سيتم الرد عليك قريبًا');
+                        alert('Thank you! I will get back to you soon.');
                         contactForm.reset();
                         gsap.to(contactForm, {
                             opacity: 1,
