@@ -3,54 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محمد - المحفظة الشخصية</title>
-    <meta name="description" content="محفظة أعمالي الشخصية - عرض المشاريع والإنجازات">
+    <title>محمد سليم - مطور تطبيقات الموبايل</title>
+    <meta name="description" content="محفظة محمد سليم - مطور تطبيقات Flutter المحترف">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/flutter-web-launcher@latest/dist/flutter-web-launcher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#projects">المشاريع</a></li>
                 <li><a href="#about">من أنا</a></li>
+                <li><a href="#skills">المهارات</a></li>
+                <li><a href="#projects">المشاريع</a></li>
                 <li><a href="#contact">تواصل معي</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="home">
-            <h1>مرحبًا، أنا محمد</h1>
-            <p>مطور برمجيات متخصص في تطوير تطبيقات الويب والموبايل</p>
-        </section>
-
-        <section id="projects">
-            <h2>مشاريعي</h2>
-            <div class="project-grid">
-                <!-- سيتم إضافة المشاريع هنا -->
-                <div class="project-card">
-                    <h3>المشروع الأول</h3>
-                    <p>وصف مختصر للمشروع</p>
-                    <a href="#">عرض التفاصيل</a>
-                </div>
-                <div class="project-card">
-                    <h3>المشروع الثاني</h3>
-                    <p>وصف مختصر للمشروع</p>
-                    <a href="#">عرض التفاصيل</a>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown">محمد سليم محمد</h1>
+                <p class="animate__animated animate__fadeInUp">مطور تطبيقات Flutter | مهندس برمجيات</p>
+                <div class="contact-info">
+                    <a href="tel:+201027316003">📱 +201027316003</a>
+                    <a href="mailto:mohamedselemdev@gmail.com">✉️ mohamedselemdev@gmail.com</a>
+                    <a href="https://github.com/Mohamedselim-afk" target="_blank">🌐 GitHub</a>
                 </div>
             </div>
         </section>
 
         <section id="about">
             <h2>من أنا</h2>
-            <p>أنا مطور برمجيات شغوف بإنشاء حلول تقنية مبتكرة</p>
+            <div class="about-content">
+                <div class="profile-image">
+                    <img src="profile.jpg" alt="محمد سليم" class="animate__animated">
+                </div>
+                <div class="about-text">
+                    <h3>ملخص المسيرة المهنية</h3>
+                    <p>مهندس برمجيات متخصص في تطوير تطبيقات الأندرويد وiOS باستخدام Flutter. أمتلك خبرة 3 سنوات في إنشاء تطبيقات مبتكرة، وقد ساهمت في تطوير تطبيقات حققت أكثر من 20,000 تحميل.</p>
+                    <p>أتميز في:</p>
+                    <ul>
+                        <li>تطوير تطبيقات Flutter عالية الجودة</li>
+                        <li>تحسين أداء التطبيقات</li>
+                        <li>التكامل مع واجهات برمجة التطبيقات</li>
+                        <li>تصميم واجهات مستخدم جذابة</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>المهارات التقنية</h2>
+            <div class="skills-grid">
+                <div class="skill-card">Flutter</div>
+                <div class="skill-card">Dart</div>
+                <div class="skill-card">Firebase</div>
+                <div class="skill-card">Git</div>
+                <div class="skill-card">Figma</div>
+                <div class="skill-card">Android</div>
+                <div class="skill-card">iOS</div>
+                <div class="skill-card">API Integration</div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>المشاريع</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>تطبيق المشارق</h3>
+                    <p>تطبيق خاص بالحج مطور لهيئة الحج</p>
+                </div>
+                <div class="project-card">
+                    <h3>تطبيق غسيل السيارات</h3>
+                    <p>حل متكامل لإدارة خدمات غسيل السيارات</p>
+                </div>
+                <div class="project-card">
+                    <h3>تطبيق العيادات البيطرية</h3>
+                    <p>نظام إدارة للعيادات البيطرية</p>
+                </div>
+                <div class="project-card">
+                    <h3>تطبيق مزرعتي</h3>
+                    <p>حل تقني لإدارة المزارع</p>
+                </div>
+            </div>
         </section>
 
         <section id="contact">
             <h2>تواصل معي</h2>
-            <form>
+            <form id="contact-form">
                 <input type="text" placeholder="الاسم" required>
                 <input type="email" placeholder="البريد الإلكتروني" required>
                 <textarea placeholder="رسالتك" required></textarea>
@@ -61,11 +105,10 @@
 
     <footer>
         <div class="social-links">
-            <a href="#">GitHub</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Twitter</a>
+            <a href="https://github.com/Mohamedselim-afk" target="_blank">GitHub</a>
+            <a href="mailto:mohamedselemdev@gmail.com">البريد الإلكتروني</a>
         </div>
-        <p>&copy; 2025 محمد. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2025 محمد سليم. جميع الحقوق محفوظة.</p>
     </footer>
 
     <script src="app.js"></script>
