@@ -227,46 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     }
 
-    // ==========================================
-    // STATS COUNTER ANIMATION
-    // ==========================================
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px'
-    };
-
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.getAttribute('data-target'));
-                animateCounter(entry.target, target);
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    statNumbers.forEach(stat => {
-        statsObserver.observe(stat);
-    });
-
-    function animateCounter(element, target) {
-        let current = 0;
-        const increment = target / 50;
-        const duration = 2000;
-        const stepTime = duration / 50;
-
-        const counter = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(counter);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, stepTime);
-    }
 
     // ==========================================
     // SKILL BARS ANIMATION
@@ -298,11 +258,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // SCROLL ANIMATIONS
     // ==========================================
     // Animate sections on scroll
-    gsap.utils.toArray('section').forEach(section => {
+    const allSections = gsap.utils.toArray('section');
+    allSections.forEach(section => {
         gsap.from(section, {
             scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
+                trigger: section,
+                start: 'top 80%',
                 end: 'top 20%',
                 toggleActions: 'play none none none'
             },
@@ -312,6 +273,15 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'power2.out'
         });
     });
+    
+    // Fallback: ensure all sections are visible after 3 seconds
+    setTimeout(() => {
+        allSections.forEach(section => {
+            if (window.getComputedStyle(section).opacity === '0') {
+                gsap.to(section, { opacity: 1, y: 0, duration: 0.5 });
+            }
+        });
+    }, 3000);
 
     // Profile image animation
     const profileImage = document.querySelector('.profile-image img');
@@ -328,57 +298,116 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Stats cards stagger animation
-    gsap.from('.stat-card', {
-        scrollTrigger: {
-            trigger: '.stats-section',
-            start: 'top 80%'
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out'
-    });
 
-    // Skills category animation
-    gsap.from('.skills-category', {
-        scrollTrigger: {
-            trigger: '#skills',
-            start: 'top 80%'
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.3,
-        ease: 'power2.out'
-    });
+    // Skills section and category animation
+    const skillsSection = document.getElementById('skills');
+    const skillsCategories = document.querySelectorAll('.skills-category');
+    const skillsContainer = document.querySelector('.skills-container');
+    
+    // Ensure skills section is visible
+    if (skillsSection) {
+        setTimeout(() => {
+            if (window.getComputedStyle(skillsSection).opacity === '0') {
+                gsap.to(skillsSection, { opacity: 1, duration: 0.5 });
+            }
+        }, 1500);
+    }
+    
+    // Ensure skills container is visible
+    if (skillsContainer) {
+        setTimeout(() => {
+            if (window.getComputedStyle(skillsContainer).opacity === '0') {
+                gsap.to(skillsContainer, { opacity: 1, duration: 0.5 });
+            }
+        }, 1500);
+    }
+    
+    if (skillsCategories.length > 0) {
+        gsap.from('.skills-category', {
+            scrollTrigger: {
+                trigger: '#skills',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.3,
+            ease: 'power2.out'
+        });
+        
+        // Fallback: ensure skills categories are visible after 2 seconds
+        setTimeout(() => {
+            skillsCategories.forEach(category => {
+                if (window.getComputedStyle(category).opacity === '0') {
+                    gsap.to(category, { opacity: 1, y: 0, duration: 0.5 });
+                }
+            });
+        }, 2000);
+    }
 
     // Project cards animation
-    gsap.from('.project-card', {
-        scrollTrigger: {
-            trigger: '#projects',
-            start: 'top 80%'
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out'
-    });
+    const projectCards = document.querySelectorAll('.project-card');
+    if (projectCards.length > 0) {
+        gsap.from('.project-card', {
+            scrollTrigger: {
+                trigger: '#projects',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power2.out'
+        });
+        
+        // Fallback: ensure cards are visible after 2 seconds
+        setTimeout(() => {
+            projectCards.forEach(card => {
+                if (card.style.opacity === '0' || !card.style.opacity) {
+                    gsap.to(card, { opacity: 1, y: 0, duration: 0.5 });
+                }
+            });
+        }, 2000);
+    }
 
-    // Architecture tags animation
-    gsap.from('.arch-tag', {
-        scrollTrigger: {
-            trigger: '.architecture-section',
-            start: 'top 80%'
-        },
-        scale: 0,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: 'back.out(1.7)'
-    });
+    // Architecture section and tags animation
+    const archSection = document.querySelector('.architecture-section');
+    const archTags = document.querySelectorAll('.arch-tag');
+    
+    // Ensure architecture section is visible
+    if (archSection) {
+        setTimeout(() => {
+            if (window.getComputedStyle(archSection).opacity === '0') {
+                gsap.to(archSection, { opacity: 1, duration: 0.5 });
+            }
+        }, 2000);
+    }
+    
+    if (archTags.length > 0) {
+        gsap.from('.arch-tag', {
+            scrollTrigger: {
+                trigger: '.architecture-section',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: 'back.out(1.7)'
+        });
+        
+        // Fallback: ensure tags are visible after 2 seconds
+        setTimeout(() => {
+            archTags.forEach(tag => {
+                if (window.getComputedStyle(tag).opacity === '0') {
+                    gsap.to(tag, { opacity: 1, scale: 1, duration: 0.3 });
+                }
+            });
+        }, 2000);
+    }
 
     // ==========================================
     // HEADER SCROLL EFFECT
