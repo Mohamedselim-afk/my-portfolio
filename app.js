@@ -233,6 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const skillBars = document.querySelectorAll('.skill-progress-bar');
     
+    const skillsObserverOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
     const skillsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -248,11 +253,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 skillsObserver.unobserve(progressBar);
             }
         });
-    }, observerOptions);
+    }, skillsObserverOptions);
 
     skillBars.forEach(bar => {
         skillsObserver.observe(bar);
     });
+    
+    // Fallback: ensure skill bars animate after 3 seconds
+    setTimeout(() => {
+        skillBars.forEach(bar => {
+            const progress = bar.getAttribute('data-progress');
+            if (bar.style.width === '' || bar.style.width === '0px' || bar.style.width === '0%') {
+                gsap.to(bar, {
+                    width: progress + '%',
+                    duration: 1.5,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    }, 3000);
 
     // ==========================================
     // SCROLL ANIMATIONS
